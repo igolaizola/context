@@ -13,7 +13,7 @@ func TestTimeout(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := ctx.Err(); err != nil {
-		t.Fatal("expecter: nil, got %v", err)
+		t.Fatalf("expected: nil, got: %v", err)
 	}
 	select {
 	case <-ctx.Done():
