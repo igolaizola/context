@@ -34,7 +34,10 @@ func WithDeadline(ctx context.Context) (Context, context.CancelFunc) {
 	go func() {
 		defer close(d.done)
 		for {
-			<-d.timeout.Done()
+			d.mu.Lock()
+			t := d.timeout
+			d.mu.Unlock()
+			<-t.Done()
 			if err := d.Err(); err != nil {
 				return
 			}
